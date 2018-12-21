@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>home</title>
+    <script src="../static/jquery-3.3.1.js"></script>
+    <!--<script type="text/javascript" src="/jquery-3.3.1.js"></script>-->
+</head>
+<body>
+<script>
+    $(document).ready(function () {
+        formSubmit()
+    });
+    function formSubmit() {
+        $.ajax({
+            async:false,
+            url:"http://localhost:8080/user",
+            type:'post',
+            dataType:'json',
+            contentType : 'application/json',
+            data:JSON.stringify(GetJsonData()),
+            success:function(result){
+                alert(result.result);
+            }
+        });
+    }
+    function GetJsonData() {
+        var json = {
+            "username": "a",
+            "password": "aaa",
+            "email": "aaa@qq.com"
+        };
+        return json;
+    }
+</script>
+<style type="text/css">
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    #outer{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+    }
+    #loginform{
+        transform: translate(-50%, -50%);
+    }
+    #inner{
+        display: grid;
+        grid-template-columns: 1fr 6fr;
+        grid-column-gap: 15px;
+    }
+    input, select{
+        grid-column: 2;
+        margin-top: 8px;
+        width: 300px;
+        height: 35px;
+        outline: none;
+        border: none;
+        border-bottom: solid 1px #bcbcbc;
+        text-align: center;
+        text-align-last: center;
+    }
+    .dropdown-list {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1;
+    }
+    #list:hover .dropdown-list{
+        display: block;
+    }
+    p:hover{
+        color: #ffbd1c;
+    }
+    p{
+        width: 270px;
+        height: 25px;
+        line-height: 25px ;
+        text-align: center;
+    }
+    #list{
+        grid-column: 2/3;
+        display: inline-block;
+    }
+    label{
+        grid-column: 1;
+        line-height: 50px;
+        justify-self: center;
+    }
+    .button{
+        grid-column: 1/3;
+        width: 100%;
+        border: none;
+    }
+    .button:hover{
+        background-color: #d1d8de;
+    }
+</style>
+<div id="outer">
+    <form id="loginform" onsubmit="formSubmit()">
+        <div id="inner">
+            <label>邮 箱</label><input type="email" name="email" required="required" placeholder="请输入邮箱" autocomplete="off">
+            <label>密 码</label><input type="password" name="password" required="required" placeholder="请输入密码">
+            <label>类 型</label>
+            <!--<div id="list">
+            <input id="select" type="text" name="select" readonly="readonly">
+                <div class="dropdown-list">
+                    <p></p>
+                    <p onclick="clickres(this)">管理</p>
+                    <p onclick="clickres(this)">分析</p>
+                    <p onclick="clickres(this)">执行</p>
+                </div>
+            </div>-->
+            <select name="seleter" required="required">
+                <option value=""></option>
+                <option value="管理">管理</option>
+                <option value="分析">分析</option>
+                <option value="执行">执行</option>
+            </select>
+            <input class="button" type="submit" value="登&nbsp;&nbsp;&nbsp;&nbsp;陆">
+            <input class="button" type="reset" value="清&nbsp;&nbsp;&nbsp;&nbsp;理">
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
